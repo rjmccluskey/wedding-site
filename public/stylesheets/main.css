@@ -1,0 +1,66 @@
+html, button, input, select, textarea, h1, h2, h3, h4, p,
+.pure-g [class *= "pure-u"] {
+    font-family: 'Cantarell', sans-serif;
+    color: #A6A6A6;
+}
+
+p > a:hover,
+a:hover {
+    color: #e8d269;
+}
+
+a:visited {
+    color: #A6A6A6;
+}
+
+.pure-g,
+.pure-menu,
+.slideshow {
+    position: relative;
+}
+
+.center {
+    position:absolute; left:0; right:0; top: 0;
+    margin: auto;
+    width: auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.pure-menu-link:hover,
+.pure-menu-link:focus {
+    color: #e8d269;
+    background-color: white;
+}
+
+.fixed-menu {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.active {
+    color: #e8d269;
+}
+
+img {
+    max-height: 35em;
+    z-index: -1;
+}
+
+.arrow-border {
+    max-width: 100%;
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
+
+.after-slideshow {
+    margin-top: 35em;
+}
+
+.buffer {
+    margin-top: 3em;
+}
