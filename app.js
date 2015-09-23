@@ -30,7 +30,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 2628000000}
+    cookie: {maxAge: 1000*60*60*24*365*2}
 }));
 
 app.use('/', routes);
