@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    form(action="/login", method="POST")
+        input(type="text", name="password")
+        input(type="submit", value="Enter our site!")
+
+    if message
+        p.error=message
