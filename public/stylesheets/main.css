@@ -42,7 +42,7 @@ a:visited {
     z-index: 1;
 }
 
-.active {
+.pure-menu-item > .active {
     color: #e8d269;
 }
 
