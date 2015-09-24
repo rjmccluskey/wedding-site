@@ -1,0 +1,25 @@
+- var homeActive = ''
+- var ourStoryActive = ''
+- var theMainEventActive = ''
+- var lodgingActive = ''
+
+case activeMenuLink
+    when 'home'
+        - homeActive = ' active'
+    when 'ourStory'
+        - ourStoryActive = ' active'
+    when 'theMainEvent'
+        - theMainEventActive = ' active'
+    when 'lodging'
+        - lodgingActive = ' active'
+
+div(class='pure-menu pure-menu-horizontal fixed-menu center-text')
+    ul.pure-menu-list
+        li.pure-menu-item
+            a(href='/', class='pure-menu-link' + homeActive) HOME
+        li.pure-menu-item
+            a(href='/ourstory', class='pure-menu-link' + ourStoryActive) OUR STORY
+        li.pure-menu-item
+            a(href='/mainevent' class='pure-menu-link' + theMainEventActive) THE MAIN EVENT
+        li.pure-menu-item
+            a(href='/lodging' class='pure-menu-link' + lodgingActive) LODGING

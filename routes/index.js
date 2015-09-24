@@ -5,7 +5,7 @@ var secretCode = process.env.SECRETE_CODE;
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if (req.session.secretCode === secretCode) {
-        res.render('index', { title: 'Express' });
+        res.render('index', { activeMenuLink: 'home' });
     } else {
         res.render('login');
     }
