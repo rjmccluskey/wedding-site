@@ -21,4 +21,30 @@ router.post('/login', function(req, res, next) {
     }
 });
 
+router.get('/ourstory', function(req, res, next) {
+    if (authenticate(req, res)) {
+        res.render('our-story', { activeMenuLink: 'ourStory' });
+    }
+});
+
+router.get('/mainevent', function(req, res, next) {
+    if (authenticate(req, res)) {
+        res.render('the-main-event', { activeMenuLink: 'theMainEvent' });
+    }
+});
+
+router.get('/lodging', function(req, res, next) {
+    if (authenticate(req, res)) {
+        res.render('lodging', { activeMenuLink: 'lodging' });
+    }
+});
+
+function authenticate(req, res) {
+    if (req.session.secretCode !== secretCode) {
+        res.redirect('/');
+    } else {
+        return true;
+    }
+};
+
 module.exports = router;
