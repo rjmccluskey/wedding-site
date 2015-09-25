@@ -64,3 +64,20 @@ img {
 .buffer {
     margin-top: 3em;
 }
+
+.error {
+    color: red;
+}
+
+#login {
+    margin-top: 10%;
+}
+
+#login div > input {
+    border-radius: 0;
+    text-align: center;
+}
+
+input[type="submit"]:hover {
+    color: #e8d269;
+}
