@@ -9,7 +9,6 @@ var dotenv = require('dotenv');
 dotenv.load();
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -34,7 +33,6 @@ app.use(session({
 }));
 
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

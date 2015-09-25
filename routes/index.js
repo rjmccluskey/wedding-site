@@ -47,4 +47,9 @@ function authenticate(req, res) {
     }
 };
 
+// redirect any unknown routes to home
+router.get('*', function(req, res, next) {
+    res.redirect('/');
+});
+
 module.exports = router;
