@@ -13,12 +13,12 @@ case activeMenuLink
     when 'lodging'
         - lodgingActive = ' active'
 
-div#menu(class='pure-menu pure-menu-horizontal fixed-menu center-text')
+div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu center-text')
     ul.pure-menu-list
         li.pure-menu-item
             a(href='/', class='pure-menu-link' + homeActive) HOME
-        li.pure-menu-item
-            a(href='/ourstory', class='pure-menu-link' + ourStoryActive) OUR STORY
+        //- li.pure-menu-item
+        //-     a(href='/ourstory', class='pure-menu-link' + ourStoryActive) OUR STORY
         li.pure-menu-item
             a(href='/mainevent' class='pure-menu-link' + theMainEventActive) THE MAIN EVENT
         li.pure-menu-item
