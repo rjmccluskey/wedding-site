@@ -28,8 +28,14 @@ a:hover {
     position: relative;
 }
 
-.center {
+.center-absolute {
     position:absolute; left:0; right:0; top: 0;
+    margin: auto;
+    width: auto;
+}
+
+.center-relative {
+    position:relative; left:0; right:0; top: 0;
     margin: auto;
     width: auto;
 }
