@@ -1,11 +1,15 @@
 $(function(){
-    $('.slideshow img').load(positionContentAfterSlideshow);
-    $(window).resize(positionContentAfterSlideshow);
+    if ($('.slideshow img')) {
 
-    function positionContentAfterSlideshow() {
-        var slideshowHeight = $('.slideshow img').outerHeight(true);
-        var $afterSlideshow = $('.after-slideshow');
+        $('.slideshow img').load(positionContentAfterSlideshow);
+        $(window).resize(positionContentAfterSlideshow);
 
-        $afterSlideshow.css('margin-top', slideshowHeight);
+        function positionContentAfterSlideshow() {
+            var slideshowHeight = $('.slideshow img').outerHeight(true);
+            var $afterSlideshow = $('.after-slideshow');
+
+            $afterSlideshow.css('margin-top', slideshowHeight + 10);
+        }
+
     }
 });
