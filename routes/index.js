@@ -21,23 +21,42 @@ router.post('/login', function(req, res, next) {
     }
 });
 
-router.get('/ourstory', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('our-story', { activeMenuLink: 'ourStory' });
-    }
+buildPages(router, {
+    'our-story': '/ourstory',
+    'the-main-event': '/mainevent',
+    'lodging': '/lodging'
 });
 
-router.get('/mainevent', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('the-main-event', { activeMenuLink: 'theMainEvent' });
-    }
-});
+// router.get('/ourstory', function(req, res, next) {
+//     if (authenticate(req, res)) {
+//         res.render('our-story', { activeMenuLink: 'ourStory' });
+//     }
+// });
 
-router.get('/lodging', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('lodging', { activeMenuLink: 'lodging' });
-    }
-});
+// router.get('/mainevent', function(req, res, next) {
+//     if (authenticate(req, res)) {
+//         res.render('the-main-event', { activeMenuLink: 'theMainEvent' });
+//     }
+// });
+
+// router.get('/lodging', function(req, res, next) {
+//     if (authenticate(req, res)) {
+//         res.render('lodging', { activeMenuLink: 'lodging' });
+//     }
+// });
+
+function buildPages(router, viewToRouteObject) {
+    var keys = Object.keys(viewToRouteObject);
+    for (var i = keys.length - 1; i >= 0; i--) {
+        var view = keys[i];
+        var route = viewToRouteObject[view];
+        router.get(route, function(req, res, next) {
+            if (authenticate(req, res)) {
+                res.render(view, {activeMenuLink: view});
+            }
+        });
+    };
+};
 
 function authenticate(req, res) {
     if (req.session.secretCode !== secretCode) {
