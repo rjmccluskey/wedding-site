@@ -1,5 +1,7 @@
 var express = require('express');
+var client = require('redis').createClient(process.env.REDIS_URL);
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -29,7 +31,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 1000*60*60*24*365*2}
+    store: new RedisStore({
+      client: client,
+      disableTTL: true
+    })
 }));
 
 app.use('/', routes);
