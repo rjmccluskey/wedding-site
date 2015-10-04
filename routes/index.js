@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var secretCode = process.env.SECRETE_CODE;
+var pages = [
+    'lodging',
+    'mainevent',
+    'ourstory',
+    'rsvp'
+];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,27 +27,12 @@ router.post('/login', function(req, res, next) {
     }
 });
 
-router.get('/ourstory', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('our-story', { activeMenuLink: 'ourStory' });
-    }
-});
-
-router.get('/mainevent', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('the-main-event', { activeMenuLink: 'theMainEvent' });
-    }
-});
-
-router.get('/lodging', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('lodging', { activeMenuLink: 'lodging' });
-    }
-});
-
-router.get('/rsvp', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('rsvp', { activeMenuLink: 'rsvp' });
+router.get('/:page', function(req, res, next) {
+    var page = req.params.page;
+    if (authenticate(req, res) && pages.indexOf(page) > -1) {
+        res.render(page, { activeMenuLink: page});
+    } else {
+        res.redirect('/');
     }
 });
 
@@ -52,10 +43,5 @@ function authenticate(req, res) {
         return true;
     }
 };
-
-// redirect any unknown routes to home
-router.get('*', function(req, res, next) {
-    res.redirect('/');
-});
 
 module.exports = router;
