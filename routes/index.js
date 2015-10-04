@@ -39,6 +39,12 @@ router.get('/lodging', function(req, res, next) {
     }
 });
 
+router.get('/rsvp', function(req, res, next) {
+    if (authenticate(req, res)) {
+        res.render('rsvp', { activeMenuLink: 'rsvp' });
+    }
+});
+
 function authenticate(req, res) {
     if (req.session.secretCode !== secretCode) {
         res.redirect('/');
