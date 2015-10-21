@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var client = require('redis').createClient(process.env.REDIS_URL);
 var secretCode = process.env.SECRETE_CODE;
 var pages = [
     'lodging',
@@ -34,6 +35,11 @@ router.get('/:page', function(req, res, next) {
     } else {
         res.redirect('/');
     }
+});
+
+router.post('/rsvp', function(req, res, next) {
+    var rsvp = req.body.rsvp;
+
 });
 
 function authenticate(req, res) {

@@ -1,3 +1,42 @@
 extends page
 
 block pageContent
+    form#rsvp(action='/rsvp', method='POST', class='form-custom-radio pure-form pure-form-stacked')
+        label.pure-radio(for='yes')
+            input#yes(type='radio', name='rsvp', value='yes' checked)
+            span  Yes, of course!
+        label.pure-radio(for='no')
+            input#no(type='radio', name='rsvp', value='no')
+            span  No, but I have a really good excuse!
+        label(for='name')
+            input#name(type='text', name='name', placeholder='Enter your name(s)', required)
+        label(for='email')
+            input#email(type='email', placeholder='Enter an email', name='email')
+        label(for='song')
+            input#song(type='text', placeholder='What song do you want to dance to?', name='song')
+
+        input.pure-input(type='submit', value='Send')
+
+append scripts
+    script.
+        $(function(){
+            toggleYesNoOptions();
+            $('#rsvp').change(toggleYesNoOptions);
+
+            function toggleYesNoOptions() {
+                var $yes = $('#yes');
+                var $no = $('#no');
+                var $email = $('#email');
+                var $song = $('#song');
+
+                if ($yes.is(':checked')) {
+                    $email.prop('required', true);
+                    $email.show();
+                    $song.show();
+                } else if ($no.is(':checked')) {
+                    $email.prop('required', false);
+                    $email.hide();
+                    $song.hide();
+                }
+            };
+        });

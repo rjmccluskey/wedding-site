@@ -89,3 +89,7 @@ img {
 input[type="submit"]:hover {
     color: #e8d269;
 }
+
+.form-custom-radio > label > input[type='radio'] {
+
+}
