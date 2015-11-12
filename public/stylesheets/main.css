@@ -8,18 +8,22 @@ h1, h2 {
     text-transform: uppercase;
 }
 
-p > a:visited {
+p> a:visited, h3 > a:visited {
     color: black;
 }
 
-p > a {
+p > a, h3 > a {
     color: black;
     text-decoration: none;
 }
 
-p > a:hover,
+p > a:hover, h3 > a:hover,
 a:hover {
     color: #e8d269;
+}
+
+.pure-button:hover {
+    background-color: transparent;
 }
 
 .pure-g,

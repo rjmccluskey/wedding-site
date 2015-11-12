@@ -39,6 +39,12 @@ router.get('/lodging', function(req, res, next) {
     }
 });
 
+router.get('/registry', function(req, res, next) {
+    if (authenticate(req, res)) {
+        res.render('registry', { activeMenuLink: 'registry' });
+    }
+});
+
 function authenticate(req, res) {
     if (req.session.secretCode !== secretCode) {
         res.redirect('/');
