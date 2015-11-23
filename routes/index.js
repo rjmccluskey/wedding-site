@@ -29,6 +29,18 @@ router.post('/login', function(req, res, next) {
     }
 });
 
+router.get('/rsvp', function(req, res, next) {
+    if (authenticate(req, res)) {
+        if (req.session.rsvp) {
+            res.render('rsvp-submitted', {activeMenuLink: 'rsvp'})
+        } else {
+            res.render('rsvp', {activeMenuLink: 'rsvp'});
+        }
+    } else {
+        res.redirect('/');
+    }
+});
+
 router.get('/:page', function(req, res, next) {
     var page = req.params.page;
     if (authenticate(req, res) && pages.indexOf(page) > -1) {
@@ -39,8 +51,19 @@ router.get('/:page', function(req, res, next) {
 });
 
 router.post('/rsvp', function(req, res, next) {
-    var rsvp = req.body.rsvp;
+    var rsvp = Boolean(req.body.rsvp);
+    var name = req.body.name;
+    var song = req.body.song;
 
+    if (rsvp) {
+        client.rpush('rsvp-yes', name);
+        client.rpush('rsvp-song', song);
+    } else {
+        client.rpush('rsvp-no', name);
+    }
+    req.session.rsvp = true;
+
+    res.redirect('/rsvp');
 });
 
 function authenticate(req, res) {
