@@ -6,7 +6,8 @@ var pages = [
     'lodging',
     'mainevent',
     'ourstory',
-    'rsvp'
+    'rsvp',
+    'registry'
 ];
 
 /* GET home page. */
@@ -40,12 +41,6 @@ router.get('/:page', function(req, res, next) {
 router.post('/rsvp', function(req, res, next) {
     var rsvp = req.body.rsvp;
 
-});
-
-router.get('/registry', function(req, res, next) {
-    if (authenticate(req, res)) {
-        res.render('registry', { activeMenuLink: 'registry' });
-    }
 });
 
 function authenticate(req, res) {
