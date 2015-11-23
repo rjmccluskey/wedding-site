@@ -3,6 +3,7 @@
 - var mainEventActive = ''
 - var lodgingActive = ''
 - var rsvpActive = ''
+- var registryActive = ''
 
 case activeMenuLink
     when 'home'
@@ -15,6 +16,8 @@ case activeMenuLink
         - lodgingActive = ' active'
     when 'rsvp'
         - rsvpActive = ' active'
+    when 'registry'
+        - registryActive = ' active'
 
 div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu center-text')
     ul.pure-menu-list
@@ -28,3 +31,5 @@ div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu c
             a(href='/lodging' class='pure-menu-link' + lodgingActive) LODGING
         li.pure-menu-item
             a(href='/rsvp' class='pure-menu-link' + rsvpActive) RSVP
+        li.pure-menu-item
+            a(href='/registry', class='pure-menu-link' + registryActive) REGISTRY
