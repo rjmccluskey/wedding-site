@@ -93,3 +93,7 @@ img {
 input[type="submit"]:hover {
     color: #e8d269;
 }
+
+.footer {
+    height: 5em;
+}
