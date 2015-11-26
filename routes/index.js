@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var client = require('redis').createClient(process.env.REDIS_URL);
 var secretCode = process.env.SECRETE_CODE;
+var adminSecret = process.env.ADMIN_SECRET;
 var pages = [
     'lodging',
     'mainevent',
@@ -41,13 +42,23 @@ router.get('/rsvp', function(req, res, next) {
     }
 });
 
-router.get('/:page', function(req, res, next) {
-    var page = req.params.page;
-    if (authenticate(req, res) && pages.indexOf(page) > -1) {
-        res.render(page, { activeMenuLink: page});
+router.get('/rsvp-admin', function(req, res, next) {
+    if (authenticate(req, res)) {
+        if (req.session.adminSecret === adminSecret) {
+            res.render('rsvp-admin');
+        } else {
+            res.render('rsvp-admin-login');
+        }
     } else {
-        res.redirect('/');
+        res.reditect('/');
     }
+});
+
+router.post('/rsvp/login', function(req, res, next) {
+    if (req.body.password === adminSecret) {
+        req.session.adminSecret = adminSecret;
+    }
+    res.redirect('/rsvp-admin');
 });
 
 router.post('/rsvp', function(req, res, next) {
@@ -64,6 +75,16 @@ router.post('/rsvp', function(req, res, next) {
     req.session.rsvp = true;
 
     res.redirect('/rsvp');
+});
+
+/* This route should always be the last GET route in this file */
+router.get('/:page', function(req, res, next) {
+    var page = req.params.page;
+    if (authenticate(req, res) && pages.indexOf(page) > -1) {
+        res.render(page, { activeMenuLink: page});
+    } else {
+        res.redirect('/');
+    }
 });
 
 function authenticate(req, res) {
