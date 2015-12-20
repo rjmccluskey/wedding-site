@@ -1,3 +1,16 @@
+- var yeses;
+- var nos;
+- var songs;
+
 extends page
 
 block pageContent
+    ul
+        each yes in yeses
+            li= yes
+    ul
+        each no in nos
+            li= no
+    ul
+        each song in songs
+            li= song

@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var client = require('redis').createClient(process.env.REDIS_URL);
+var redis = require('redis');
+var client = redis.createClient(process.env.REDIS_URL);
+var bluebird = require('bluebird');
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
 var secretCode = process.env.SECRETE_CODE;
 var adminSecret = process.env.ADMIN_SECRET;
 var pages = [
@@ -45,7 +49,27 @@ router.get('/rsvp', function(req, res, next) {
 router.get('/rsvp-admin', function(req, res, next) {
     if (authenticate(req, res)) {
         if (req.session.adminSecret === adminSecret) {
-            res.render('rsvp-admin');
+            var yeses, nos, songs;
+            client.lrangeAsync('rsvp-yes', 0, -1)
+            .then(function(data) {
+                yeses = data;
+            })
+            .then(function() {
+                client.lrangeAsync('rsvp-no', 0, -1)
+                .then(function(data) {
+                    nos = data;
+                })
+                .then(function() {
+                    client.lrangeAsync('rsvp-song', 0, -1)
+                    .then(function(data) {
+                        res.render('rsvp-admin', {
+                            yeses: yeses,
+                            nos: nos,
+                            songs: data
+                        });
+                    });
+                });
+            });
         } else {
             res.render('rsvp-admin-login');
         }
@@ -68,7 +92,9 @@ router.post('/rsvp', function(req, res, next) {
 
     if (rsvp) {
         client.rpush('rsvp-yes', name);
-        client.rpush('rsvp-song', song);
+        if (song) {
+            client.rpush('rsvp-song', song);
+        }
     } else {
         client.rpush('rsvp-no', name);
     }
