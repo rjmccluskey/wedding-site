@@ -5,12 +5,19 @@
 extends page
 
 block pageContent
-    ul
-        each yes in yeses
-            li= yes
-    ul
-        each no in nos
-            li= no
-    ul
-        each song in songs
-            li= song
+    .pure-g
+        .pure-u-1-3
+            h4 Yeses:
+            ul
+                each yes in yeses
+                    li= yes
+        .pure-u-1-3
+            h4 Nos:
+            ul
+                each no in nos
+                    li= no
+        .pure-u-1-3
+            h4 Songs:
+            ul
+                each song in songs
+                    li= song
