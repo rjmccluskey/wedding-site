@@ -94,6 +94,17 @@ input[type="submit"]:hover {
     color: #e8d269;
 }
 
+.form-custom-radio > label > input[type='radio'] {
+}
+
 .footer {
     height: 5em;
+}
+
+.right-border {
+    border-right: 1px
+}
+
+.rsvp-text {
+    width: 23em;
 }

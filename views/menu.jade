@@ -1,18 +1,21 @@
 - var homeActive = ''
 - var ourStoryActive = ''
-- var theMainEventActive = ''
+- var mainEventActive = ''
 - var lodgingActive = ''
+- var rsvpActive = ''
 - var registryActive = ''
 
 case activeMenuLink
     when 'home'
         - homeActive = ' active'
-    when 'ourStory'
+    when 'ourstory'
         - ourStoryActive = ' active'
-    when 'theMainEvent'
-        - theMainEventActive = ' active'
+    when 'mainevent'
+        - mainEventActive = ' active'
     when 'lodging'
         - lodgingActive = ' active'
+    when 'rsvp'
+        - rsvpActive = ' active'
     when 'registry'
         - registryActive = ' active'
 
@@ -23,8 +26,10 @@ div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu c
         //- li.pure-menu-item
         //-     a(href='/ourstory', class='pure-menu-link' + ourStoryActive) OUR STORY
         li.pure-menu-item
-            a(href='/mainevent', class='pure-menu-link' + theMainEventActive) THE MAIN EVENT
+            a(href='/mainevent' class='pure-menu-link' + mainEventActive) THE MAIN EVENT
         li.pure-menu-item
-            a(href='/lodging', class='pure-menu-link' + lodgingActive) LODGING
+            a(href='/lodging' class='pure-menu-link' + lodgingActive) LODGING
+        li.pure-menu-item
+            a(href='/rsvp' class='pure-menu-link' + rsvpActive) RSVP
         li.pure-menu-item
             a(href='/registry', class='pure-menu-link' + registryActive) REGISTRY

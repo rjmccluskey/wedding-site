@@ -1,0 +1,39 @@
+- var yeses;
+- var nos;
+
+extends page
+
+block pageContent
+    .pure-g
+        .pure-u-1
+            h4 Yeses:
+            table.pure-table
+                thead
+                    tr
+                        th #
+                        th Name(s)
+                        th Song
+                        th Date
+                tbody
+                    each yes, i in yeses
+                        tr
+                            td= i + 1
+                            td= yes[0]
+                            td= yes[1]
+                            td= yes[2]
+        .pure-u-1
+            h4 Nos:
+            table.pure-table
+                thead
+                    tr
+                        th #
+                        th Name(s)
+                        th Song
+                        th Date
+                tbody
+                    each no, i in nos
+                        tr
+                            td= i + 1
+                            td= no[0]
+                            td= no[1]
+                            td= no[2]
