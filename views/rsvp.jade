@@ -18,23 +18,3 @@ block pageContent
         input.pure-input(type='submit', value='Send')
 
     p If you already RSVP'd and you are seeing this form, don't worry, you don't need to submit another one :)
-
-append scripts
-    script.
-        $(function(){
-            toggleYesNoOptions();
-            $('#rsvp').change(toggleYesNoOptions);
-
-            function toggleYesNoOptions() {
-                var $yes = $('#yes');
-                var $no = $('#no');
-                var $email = $('#email');
-                var $song = $('#song');
-
-                if ($yes.is(':checked')) {
-                    $song.show();
-                } else if ($no.is(':checked')) {
-                    $song.hide();
-                }
-            };
-        });

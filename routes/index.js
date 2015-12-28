@@ -14,6 +14,8 @@ var pages = [
     'rsvp',
     'registry'
 ];
+var rsvpYesKey = 'rsvp:yes';
+var rsvpNoKey = 'rsvp:no';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -49,24 +51,23 @@ router.get('/rsvp', function(req, res, next) {
 router.get('/rsvp-admin', function(req, res, next) {
     if (authenticate(req, res)) {
         if (req.session.adminSecret === adminSecret) {
-            var yeses, nos, songs;
-            client.lrangeAsync('rsvp-yes', 0, -1)
+            var yeses = [];
+            var nos = [];
+            client.lrangeAsync(rsvpYesKey, 0, -1)
             .then(function(data) {
-                yeses = data;
+                for (var i = 0; i < data.length; i++) {
+                    yeses.push(splitNameSongDate(data[i]));
+                };
             })
             .then(function() {
-                client.lrangeAsync('rsvp-no', 0, -1)
+                client.lrangeAsync(rsvpNoKey, 0, -1)
                 .then(function(data) {
-                    nos = data;
-                })
-                .then(function() {
-                    client.lrangeAsync('rsvp-song', 0, -1)
-                    .then(function(data) {
-                        res.render('rsvp-admin', {
-                            yeses: yeses,
-                            nos: nos,
-                            songs: data
-                        });
+                    for (var i = 0; i < data.length; i++) {
+                        nos.push(splitNameSongDate(data[i]));
+                    };
+                    res.render('rsvp-admin', {
+                        yeses: yeses,
+                        nos: nos
                     });
                 });
             });
@@ -89,14 +90,13 @@ router.post('/rsvp', function(req, res, next) {
     var rsvp = Boolean(req.body.rsvp);
     var name = req.body.name;
     var song = req.body.song;
+    var date = new Date();
+    var nameSongDateString = name + ':::' + song + ':::' + date.toString();
 
     if (rsvp) {
-        client.rpush('rsvp-yes', name);
-        if (song) {
-            client.rpush('rsvp-song', song);
-        }
+        client.rpush(rsvpYesKey, nameSongDateString);
     } else {
-        client.rpush('rsvp-no', name);
+        client.rpush(rsvpNoKey, nameSongDateString);
     }
     req.session.rsvp = true;
 
@@ -119,6 +119,10 @@ function authenticate(req, res) {
     } else {
         return true;
     }
+};
+
+function splitNameSongDate(nameSongDateString) {
+    return nameSongDateString.split(':::');
 };
 
 module.exports = router;

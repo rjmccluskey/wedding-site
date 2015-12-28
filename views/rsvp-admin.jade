@@ -1,23 +1,39 @@
 - var yeses;
 - var nos;
-- var songs;
 
 extends page
 
 block pageContent
     .pure-g
-        .pure-u-1-3
+        .pure-u-1
             h4 Yeses:
-            ul
-                each yes in yeses
-                    li= yes
-        .pure-u-1-3
+            table.pure-table
+                thead
+                    tr
+                        th #
+                        th Name(s)
+                        th Song
+                        th Date
+                tbody
+                    each yes, i in yeses
+                        tr
+                            td= i + 1
+                            td= yes[0]
+                            td= yes[1]
+                            td= yes[2]
+        .pure-u-1
             h4 Nos:
-            ul
-                each no in nos
-                    li= no
-        .pure-u-1-3
-            h4 Songs:
-            ul
-                each song in songs
-                    li= song
+            table.pure-table
+                thead
+                    tr
+                        th #
+                        th Name(s)
+                        th Song
+                        th Date
+                tbody
+                    each no, i in nos
+                        tr
+                            td= i + 1
+                            td= no[0]
+                            td= no[1]
+                            td= no[2]
