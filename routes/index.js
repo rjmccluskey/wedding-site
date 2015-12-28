@@ -49,27 +49,57 @@ router.get('/rsvp', function(req, res, next) {
 router.get('/rsvp-admin', function(req, res, next) {
     if (authenticate(req, res)) {
         if (req.session.adminSecret === adminSecret) {
-            var yeses, nos, songs;
-            client.lrangeAsync('rsvp-yes', 0, -1)
-            .then(function(data) {
-                yeses = data;
-            })
-            .then(function() {
-                client.lrangeAsync('rsvp-no', 0, -1)
-                .then(function(data) {
-                    nos = data;
-                })
-                .then(function() {
-                    client.lrangeAsync('rsvp-song', 0, -1)
-                    .then(function(data) {
-                        res.render('rsvp-admin', {
-                            yeses: yeses,
-                            nos: nos,
-                            songs: data
-                        });
+            var yeses = {};
+            var nos = {};
+            client.keys('rsvp:*', function(err, keys) {
+                for (var i = keys.length - 1; i >= 0; i--) {
+                    var name = parseNameFromKey(keys[i]);
+                    client.lrange(keys[i], 0, -1, function(err, rsvpData) {
+                        var isComing = rsvpData[0];
+                        if (isComing) {
+                            yeses[name] = rsvpData;
+                        } else {
+                            nos[name] = rsvpData;
+                        }
+                        if (i == 0) {
+                            res.render('rsvp-admin', {
+                                yeses: yeses,
+                                nos: nos
+                            });
+                        }
                     });
-                });
+                };
             });
+
+            client.keys('rsvp:*', function(err, keys) {
+                for (var i = keys.length - 1; i >= 0; i--) {
+                    name = parseNameFromKey(keys[i]);
+
+                };
+            })
+
+
+            // var yeses, nos, songs;
+            // client.lrangeAsync('rsvp-yes', 0, -1)
+            // .then(function(data) {
+            //     yeses = data;
+            // })
+            // .then(function() {
+            //     client.lrangeAsync('rsvp-no', 0, -1)
+            //     .then(function(data) {
+            //         nos = data;
+            //     })
+            //     .then(function() {
+            //         client.lrangeAsync('rsvp-song', 0, -1)
+            //         .then(function(data) {
+            //             res.render('rsvp-admin', {
+            //                 yeses: yeses,
+            //                 nos: nos,
+            //                 songs: data
+            //             });
+            //         });
+            //     });
+            // });
         } else {
             res.render('rsvp-admin-login');
         }
@@ -100,6 +130,7 @@ router.post('/rsvp', function(req, res, next) {
             res.render('rsvp', {error: true});
         } else if (err) {
             console.log(err);
+            client.rpush('errors', err);
             res.redirect('/rsvp');
         }
     });
