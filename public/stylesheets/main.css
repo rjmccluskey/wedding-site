@@ -104,3 +104,7 @@ input[type="submit"]:hover {
 .right-border {
     border-right: 1px
 }
+
+.rsvp-text {
+    width: 23em;
+}

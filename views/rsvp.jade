@@ -3,6 +3,8 @@ extends page
 block pageContent
     h1.center-text So, are you in?
 
+    h4.center-text Please let us know your decision by March 1st!<br>And if you feel so inclined, help us deck out our wedding playlist by adding a song you'd like to hear at the reception!
+
     form#rsvp(action='/rsvp', method='POST', class='form-custom-radio pure-form pure-form-stacked')
         label.pure-radio(for='yes')
             input#yes(type='radio', name='rsvp', value='true' checked)
@@ -11,9 +13,9 @@ block pageContent
             input#no(type='radio', name='rsvp', value='')
             span  No, but I have a really good excuse!
         label(for='name')
-            input#name(type='text', name='name', placeholder='Enter your name(s)', required)
+            input#name(type='text', name='name', placeholder='Enter your name(s)', required, class='rsvp-text')
         label(for='song')
-            input#song(type='text', placeholder='What song do you want to dance to?', name='song')
+            input#song(type='text', placeholder='What song do you want to dance to? (optional)', name='song', class='rsvp-text')
 
         input.pure-input(type='submit', value='Send')
 
