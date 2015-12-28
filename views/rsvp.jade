@@ -1,3 +1,5 @@
+- var error;
+
 extends page
 
 block pageContent
@@ -16,6 +18,9 @@ block pageContent
             input#song(type='text', placeholder='What song do you want to dance to?', name='song')
 
         input.pure-input(type='submit', value='Send')
+
+    if error
+        p.error Oops! Looks like you already RSVP'd! If you need to update us on anything please email Rich at rjmccluskey@gmail.com
 
     p If you already RSVP'd and you are seeing this form, don't worry, you don't need to submit another one :)
 

@@ -89,18 +89,20 @@ router.post('/rsvp', function(req, res, next) {
     var rsvp = Boolean(req.body.rsvp);
     var name = req.body.name;
     var song = req.body.song;
+    var key = 'rsvp:' + name;
 
-    if (rsvp) {
-        client.rpush('rsvp-yes', name);
-        if (song) {
-            client.rpush('rsvp-song', song);
+    client.exists(key, function(err, exists) {
+        if(!exists) {
+            client.rpush(key, rsvp, song);
+            req.session.rsvp = true;
+            res.redirect('/rsvp');
+        } else if (exists) {
+            res.render('rsvp', {error: true});
+        } else if (err) {
+            console.log(err);
+            res.redirect('/rsvp');
         }
-    } else {
-        client.rpush('rsvp-no', name);
-    }
-    req.session.rsvp = true;
-
-    res.redirect('/rsvp');
+    });
 });
 
 /* This route should always be the last GET route in this file */
@@ -119,6 +121,10 @@ function authenticate(req, res) {
     } else {
         return true;
     }
+};
+
+function parseNameFromKey(key) {
+    return key.substring(5);
 };
 
 module.exports = router;
