@@ -147,6 +147,8 @@ input[type="submit"]:hover {
         height: 55px;
         z-index: 1;
         background-image: url("../images/scroll-arrow.png");
+        -webkit-user-select:none;
+        -webkit-touch-callout:none;
     }
     .menu-item-buffer {
         display: block;
