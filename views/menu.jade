@@ -19,8 +19,9 @@ case activeMenuLink
     when 'registry'
         - registryActive = ' active'
 
-div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu center-text')
+#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu center-text')
     ul.pure-menu-list
+        li(class='pure-menu-item menu-item-buffer')
         li.pure-menu-item
             a(href='/', class='pure-menu-link' + homeActive) HOME
         //- li.pure-menu-item
@@ -33,3 +34,8 @@ div#menu(class='pure-menu pure-menu-horizontal pure-menu-scrollable fixed-menu c
             a(href='/rsvp' class='pure-menu-link' + rsvpActive) RSVP
         li.pure-menu-item
             a(href='/registry', class='pure-menu-link' + registryActive) REGISTRY
+        li(class='pure-menu-item menu-item-buffer')
+div(class='scroll fixed-left')
+    img.scroll-arrow-left(src='images/scroll-arrow.png')
+div(class='scroll fixed-right')
+    img.scroll-arrow-right(src='images/scroll-arrow.png')

@@ -108,3 +108,59 @@ input[type="submit"]:hover {
 .rsvp-text {
     width: 23em;
 }
+
+.fixed-left {
+    position: absolute;
+    left: 0;
+}
+
+.fixed-right {
+    position: absolute;
+    right: 0;
+}
+
+.scroll-arrow-left {
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-arrow-right {
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.scroll:hover {
+    cursor: pointer;
+}
+
+@media all and (max-width: 568px) {
+    .scroll {
+        display: block;
+        width: 3em;
+        height: 55px;
+        z-index: 1;
+        background-image: url("../images/scroll-arrow.png");
+    }
+    .menu-item-buffer {
+        display: block;
+    }
+}
+
+@media all and (min-width: 568px) {
+    .scroll {
+        display: none;
+    }
+    .menu-item-buffer {
+        display: none;
+        width: 0;
+    }
+}
+
+.menu-item-buffer {
+    width: 3em;
+}
