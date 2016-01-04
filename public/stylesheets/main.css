@@ -110,12 +110,14 @@ input[type="submit"]:hover {
 }
 
 .fixed-left {
-    position: absolute;
+    position: fixed;
+    top: 0;
     left: 0;
 }
 
 .fixed-right {
-    position: absolute;
+    position: fixed;
+    top: 0;
     right: 0;
 }
 
