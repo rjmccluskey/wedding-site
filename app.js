@@ -1,5 +1,5 @@
 var express = require('express');
-var client = require('redis').createClient(process.env.REDIS_URL);
+var client = require('redis').createClient(process.env.HEROKU_REDIS_GREEN_URL);
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var path = require('path');
