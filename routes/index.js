@@ -5,6 +5,14 @@ var client = redis.createClient(process.env.HEROKU_REDIS_GREEN_URL);
 var bluebird = require('bluebird');
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 var secretCode = process.env.SECRETE_CODE;
 var adminSecret = process.env.ADMIN_SECRET;
 var pages = [
@@ -98,8 +106,16 @@ router.post('/rsvp', function(req, res, next) {
     } else {
         client.rpush(rsvpNoKey, nameSongDateString);
     }
-    req.session.rsvp = true;
 
+    var yesOrNo = rsvp ? 'Yes' : 'No';
+    var html = '<p>' + yesOrNo + '</p><p>Name: ' + name + '</p><p>Song: ' + song + '</p>';
+    transporter.sendMail({
+        to: process.env.EMAIL_SEND_TO,
+        subject: 'Wedding RSVP',
+        html: html
+    });
+
+    req.session.rsvp = true;
     res.redirect('/rsvp');
 });
 
