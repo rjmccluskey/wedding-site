@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var redis = require('redis');
-var client = redis.createClient(process.env.HEROKU_REDIS_GREEN_URL);
+var client = redis.createClient(process.env.REDIS_URL);
 var bluebird = require('bluebird');
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
